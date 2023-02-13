@@ -102,13 +102,4 @@ public class BasicItemController {
         itemRepository.update(itemId, item);
         return "redirect:/basic/items/{itemId}";
     }
-
-    /**
-     * 테스트용 데이터 추가
-     */
-    @PostConstruct
-    public void init() {
-        itemRepository.save(new Item("testA", 10000, 10));
-        itemRepository.save(new Item("testB", 20000, 20));
-    }
 }
