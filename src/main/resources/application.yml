@@ -3,4 +3,4 @@ logging:
     org:
       apache:
         coyote:
-          http11: DEBUG
+#          http11: DEBUG
