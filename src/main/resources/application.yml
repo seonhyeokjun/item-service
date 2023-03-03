@@ -1,6 +1,6 @@
 spring:
   messages:
-    basename: messages # messages가 기본설정임
+    basename: messages, errors # messages가 기본설정임
 
 logging:
   level:
