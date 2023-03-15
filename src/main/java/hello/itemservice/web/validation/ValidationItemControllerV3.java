@@ -46,6 +46,15 @@ public class ValidationItemControllerV3 {
 
     @PostMapping("/add")
     public String addItem(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        // 특정 필드가 아닌 복합 룰 검증
+        if (item.getQuantity() != null && item.getPrice() != null) {
+            int resultPrice = item.getQuantity() * item.getPrice();
+
+            if (resultPrice < 10000) {
+                bindingResult.reject("totalPriceMin", new Object[]{10000, resultPrice}, null);
+            }
+        }
+
         // 검증에 실패하면 다시 입력 폼으로
         if (bindingResult.hasErrors()) {
             return "validation/v3/addForm";
