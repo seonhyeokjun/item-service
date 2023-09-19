@@ -10,7 +10,7 @@ public class ConversionServiceTest {
     void conversionService() {
         // 등록
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
-        conversionService.addConverter(new StringToIntegerConverter());
+        conversionService.addConverter(new StringToIntegerConverter());     // 컨버터 등록
         conversionService.addConverter(new IntegerToStringConverter());
         conversionService.addConverter(new IpPortToStringConverter());
         conversionService.addConverter(new StringToIpPortConverter());
