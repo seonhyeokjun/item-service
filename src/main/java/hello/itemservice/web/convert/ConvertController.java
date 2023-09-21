@@ -1,31 +1,42 @@
 package hello.itemservice.web.convert;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.Data;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
-@RestController
+@Controller
 public class ConvertController {
-    @GetMapping("/hello-v1")
-    public String helloV1(HttpServletRequest request) {
-        String data = request.getParameter("data"); // 문자 타입 조회
-        Integer intValue = Integer.valueOf(data); // 숫자 타입으로 변환
-        System.out.println("intValue = " + intValue);
-        return "ok";
+    @GetMapping("/convert-view")
+    public String convertView(Model model) {
+        model.addAttribute("number", 10000);
+        model.addAttribute("ipPort", new IpPort("127.0.0.1", 8080));
+        return "convert-view";
     }
 
-    @GetMapping("/hello-v2")
-    public String helloV2(@RequestParam Integer data) {
-        System.out.println("data = " + data);
-        return "ok";
+    @GetMapping("/convert/edit")
+    public String converterEdit(Model model) {
+        IpPort ipPort = new IpPort("127.0.0.1", 8080);
+        Form form = new Form(ipPort);
+        model.addAttribute("form", form);
+        return "convert-form";
     }
 
-    @GetMapping("/ip-port")
-    public String ipPort(@RequestParam IpPort ipPort) {
-        System.out.println("ipPort IP = " + ipPort.getIp());
-        System.out.println("ipPort PORT = " + ipPort.getPort());
-        return "ok";
+    @PostMapping("/convert/edit")
+    public String converterEdit(@ModelAttribute Form form, Model model) {
+        IpPort ipPort = form.getIpPort();
+        model.addAttribute("ipPort", ipPort);
+        return "convert-view";
+    }
+
+    @Data
+    static class Form {
+        private IpPort ipPort;
+
+        public Form(IpPort ipPort) {
+            this.ipPort = ipPort;
+        }
     }
 }
