@@ -7,6 +7,7 @@ import hello.itemservice.web.convert.StringToIntegerConverter;
 import hello.itemservice.web.convert.StringToIpPortConverter;
 import hello.itemservice.web.filter.LogFilter;
 import hello.itemservice.web.filter.LoginCheckFilter;
+import hello.itemservice.web.formatter.MyNumberFormatter;
 import hello.itemservice.web.interceptor.LogInterceptor;
 import hello.itemservice.web.interceptor.LoginCheckInterceptor;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -62,7 +63,10 @@ public class WebConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
 //        registry.addConverter(new StringToIntegerConverter());
 //        registry.addConverter(new IntegerToStringConverter());
-//        registry.addConverter(new IpPortToStringConverter());
-//        registry.addConverter(new StringToIpPortConverter());
+        registry.addConverter(new IpPortToStringConverter());
+        registry.addConverter(new StringToIpPortConverter());
+
+        // 추가
+        registry.addFormatter(new MyNumberFormatter());
     }
 }
